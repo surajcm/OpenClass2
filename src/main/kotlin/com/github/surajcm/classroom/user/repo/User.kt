@@ -8,8 +8,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
-import jakarta.persistence.JoinTable
-import jakarta.persistence.ManyToMany
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import jakarta.persistence.UniqueConstraint
 
@@ -29,18 +28,14 @@ class User {
     var email: String? = null
     var password: String? = null
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
-    @JoinTable(
-        name = "users_roles",
-        joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
-        inverseJoinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")]
-    )
-    var roles: Collection<Role>? = null
+    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
+    @JoinColumn(name = "id")
+    var roles: Set<Role>? = null
 
     constructor() {}
     constructor(
         firstName: String?, lastName: String?, email: String?,
-        password: String?, roles: Collection<Role>?
+        password: String?, roles: Set<Role>?
     ) : super() {
         this.firstName = firstName
         this.lastName = lastName

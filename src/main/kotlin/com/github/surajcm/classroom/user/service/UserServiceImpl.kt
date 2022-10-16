@@ -27,7 +27,7 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
             registrationDto!!.firstName,
             registrationDto.lastName, registrationDto.email,
             passwordEncoder!!.encode(registrationDto.password),
-            Arrays.asList(Role("ROLE_USER"))
+            setOf(Role("ROLE_USER"))
         )
         return userRepository.save(user)
     }
