@@ -41,9 +41,13 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             "/registration**", "/js/**",
             "/css/**", "/img/**"
         ).permitAll().anyRequest()
-            .authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
+            .authenticated().and()
+            .formLogin().loginPage("/login")
+            .defaultSuccessUrl("/", true).permitAll().and()
+            .logout()
             .invalidateHttpSession(true).clearAuthentication(true)
-            .logoutRequestMatcher(AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
+            .logoutRequestMatcher(AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/login?logout")
             .permitAll()
     }
 }

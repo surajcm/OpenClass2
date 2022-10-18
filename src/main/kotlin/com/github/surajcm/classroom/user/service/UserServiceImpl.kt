@@ -29,6 +29,7 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
             passwordEncoder!!.encode(registrationDto.password),
             setOf(Role("ROLE_USER"))
         )
+        log.info("Going to save the user {}", user)
         return userRepository.save(user)
     }
 

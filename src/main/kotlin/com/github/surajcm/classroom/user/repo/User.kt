@@ -44,4 +44,9 @@ class User {
         this.roles = roles
     }
 
+    override fun toString(): String {
+        return "User(id=$id, firstName=$firstName, lastName=$lastName, email=$email, password=$password, roles=$roles)"
+    }
+
+
 }
